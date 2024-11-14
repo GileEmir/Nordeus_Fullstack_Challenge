@@ -1,6 +1,6 @@
 # 🌿 **Project Title:** Isle Of Heights
 
-📷 PHOTOS OF THE APP: [https://github.com/GileEmir/MEAN-Stack-Web-App---PIA-August-/wiki](https://github.com/GileEmir/Nordeus_Fullstack_Challenge/wiki)
+📷 PHOTOS OF THE APP: [https://github.com/GileEmir/Nordeus_Fullstack_Challenge/wiki](https://github.com/GileEmir/Nordeus_Fullstack_Challenge/wiki)
 
 **🏢 Challenge:** Nordeus JobFair 2024 Full-Stack Challenge
 
