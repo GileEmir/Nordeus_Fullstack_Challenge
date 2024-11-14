@@ -7,6 +7,7 @@ def fetch_map_data():
     if response.status_code == 200:
         map_data = response.text.strip().split('\n')
         map_array = [list(map(int, row.split())) for row in map_data]
+        response.close()
         return map_array
     else:
         print(f"Failed to fetch data. Status code: {response.status_code}")

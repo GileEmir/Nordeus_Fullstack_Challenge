@@ -1,0 +1,119 @@
+ADDED FUNCTIONALITIES FOR BETTER GAME EXPERIENCE:
+
+    1.Added interpolation for better look of the game,since we had only 30x30 grid:
+        - Added interpolation to scale the map up so it looks more detailed and less pixelated.
+
+    2.Red Borders for Chosen Islands:
+        - Added red borders around islands to indicate which islands have already been chosen.
+
+    3.Time Trial Mode:
+        - Implemented a new game mode where players have 1 minute to guess as many high-scoring islands as possible.
+        - Added a timer that pauses during the "Calculating..." phase.
+        - Incremented the score for each correct guess and generated a new map.
+        
+    4.Precision Mode:
+        - Implemented a new game mode with unlimited time but limited tries (10 wrong guesses).
+        - Tracked and displayed the number of tries left in the top left corner.
+        - Displayed messages for correct and wrong guesses at the bottom of the screen.
+
+    5.Hover Effect:
+        - Added a hover effect to highlight cells when the mouse is moved over the map.
+    
+    6.Flood Fill Visualization:
+        - Added a flood fill visualization to show the area covered by each island.
+        -I thought it would be fun to see what algorithm is used to calculate the area of the island.
+        It could always be changed,in the first version it was just a BFS algorithm,but i liked the DFS visualization more.
+    
+    7.Created  a real game loop:
+        - Added a game loop to handle the game states and transitions between them,allowing transitions between game modes and game over screens.
+
+
+ANSWERS TO QUESTIONS FROM THE QA REPORT:
+
+    Description of bugs that came up - how you noticed and fixed them:
+        1. Cached Map Data:
+            - Noticed: The map data was not changing and seemed to be the same every time.
+            - Fixed: Added a 'Cache-Control' header to the data fetch request to make sure we always get fresh data.
+
+        2. Timer Not Pausing:
+            - Noticed: The timer kept running even when the game was showing "Calculating..." in Time Trial Mode.
+            - Fixed: Paused the timer during the flood fill process and resumed it after, by keeping track of the paused time.
+
+        3. Incorrect Tries Left Display:
+            - Noticed: The number of tries left sometimes went up instead of down in Precision Mode.
+            - Fixed: Made sure the `tries_left` variable goes down correctly after a wrong guess and shows the right number in the top left corner.
+
+        4. Video System Not Initialized Error:
+            - Noticed: The game crashed with a "video system not initialized" error when closing the window with the X button.
+            - Fixed: Added checks for the `pygame.QUIT` event in the `draw_precision_mode_summary` and `draw_winning_screen` functions to properly call `pygame.quit()` and exit the game.
+
+        5. Red Borders Staying on Screen:
+            - Noticed: The red borders around islands stayed on the screen after guessing an island.
+            - Fixed: Cleared the `all_island_edges` list when generating a new map to remove the borders of previously guessed islands.
+
+        6. Game Not Resetting Correctly:
+            - Noticed: After finishing a game and clicking "Play Again," the game did not reset correctly.
+            - Fixed: Passed `scale_factor` and `rows` to the `draw_precision_mode_summary` and `draw_time_trial_summary` functions to ensure the game resets properly.
+
+        7. Flood Fill Visualization Lag:
+            - Noticed: The flood fill visualization caused noticeable lag during the game.
+            - Fixed: Optimized the flood fill algorithm to reduce lag and improve performance.
+
+        8. Incorrect Cell Highlighting:
+            - Noticed: The wrong cells were being highlighted when hovering over the map.
+            - Fixed: Corrected the cell calculation logic to ensure the correct cells are highlighted.
+
+        9. Hover Effect Not Updating:
+            - Noticed: The hover effect was not updating correctly when moving the mouse over the map.
+            - Fixed: Ensured the `hover_pos` variable is updated and passed correctly to the `redraw` function.
+
+
+    Ways you would test the projects of other contestants (inputs, actions you would do etc.):
+        1. Functional Testing:
+            - Make sure the game starts and all buttons work.
+            - Try each game mode (Normal, Time Trial, Precision) to see if they work as expected.
+            - Check if the timer in Time Trial Mode stops during calculations and starts again after.
+            - Make sure the tries left in Precision Mode go down after each wrong guess.
+
+        2. Usability Testing:
+            - See if the user interface is easy to understand and use.
+            - Check if messages for correct and wrong guesses are clear and easy to read.
+            - Make sure the game gives good feedback when you do something (like highlighting missed islands).
+
+        3. Performance Testing:
+            - Test the game with different map sizes to see if it runs smoothly.
+            - Check if the game can handle a lot of islands without slowing down.
+
+        4. Edge Case Testing:
+            - Try clicking outside the map to see what happens.
+            - Check how the game acts when you run out of tries in Precision Mode.
+
+    Improvements/features you would make if you had a magic wand (able to do anything you wish for):
+        1. Better Graphics:
+            - Improve the visual quality of the game with high-resolution textures and animations.
+            - Add lighting and shadows to make the game look more realistic.
+
+        2. Multiplayer Mode:
+            - Add a multiplayer mode where players can compete against each other in real-time.
+            - Include leaderboards to show the top players' scores.
+
+        3. Play against CPU:
+           - Add advanced CPU opponents that can challenge players with different difficulty levels(like in the chess game on windows).
+
+
+    Think of how some factors could affect your solution (e.g. map size, number of lives…):
+        1. Map Size:
+            - Bigger maps could make the game more challenging and fun, but also harder to manage.
+            - We would need to make sure the game runs smoothly with bigger maps, so optimizing performance would be key.
+
+        2. Number of Lives:
+            - Giving more lives in Precision Mode could make the game more enjoyable for beginners.
+            - It's important to find a balance so the game stays challenging but not too hard.
+
+        3. Time Limits:
+            - Changing the time limits in Time Trial Mode could change how fast-paced the game feels.
+            - Shorter time limits would make the game more intense and require quicker decisions.
+
+        4. Island Density:
+            - Having more islands could make it tougher to find and pick the right ones.
+            - Adding hints or visual aids could help players navigate maps with lots of islands more easily.
