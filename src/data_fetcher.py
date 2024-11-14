@@ -2,7 +2,7 @@ import requests
 
 def fetch_map_data():
     url = "https://jobfair.nordeus.com/jf24-fullstack-challenge/test"
-    response = requests.get(url)
+    response = requests.get(url, headers={'Cache-Control': 'no-cache'})
     
     if response.status_code == 200:
         map_data = response.text.strip().split('\n')
